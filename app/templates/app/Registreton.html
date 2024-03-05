@@ -1,0 +1,71 @@
+{% extends "app/layout.html" %}
+{% block title %}Registretion Page{% endblock title %}
+{% block main-contener %}
+<div class="container">
+    <h1 class='text-center'>Registe</h1>
+  <div class="row d-flex justify-content-center mt-4">
+    <div class="col-6">
+        <div class="col">
+            <div class="card">
+              <div class="card-body border-1">
+                    {% comment %} <form action="#" method="post" class=' align-items-center'>
+                      {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">User Name</label>
+                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter User Name">
+                          </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Email </label>
+                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Enter Email">
+                        </div>
+                  
+                        <div class="mb-3">
+                          <label for="exampleFormControlInput1" class="form-label">Password</label>
+                          <input type="Password" class="form-control" id="exampleFormControlInput1" placeholder="Enter Password" >
+                        </div>
+                        <div class="mb-3">
+                          <label for="exampleFormControlInput1" class="form-label">Confirm Password</label>
+                          <input type="Password" class="form-control" id="exampleFormControlInput1" placeholder="Enter Confirm Password" >
+                        </div>
+                        <div class="col-auto text-center">
+                          <button type="submit" class="btn btn-primary mb-3 ">Submit</button>
+                        </div>
+                        <div class="col-auto text-center">
+          
+                            <p>All Ready Have Account  <strong> <a href="{% url "login" %}"  class="text-center">Login</a></strong></p>
+                        </div>
+                   </form> {% endcomment %}
+
+
+
+                   <form method="post" novalidate class="shadow p-5">
+                    {% if messages %}
+                    {% for message in messages %}
+                    <p {% if message.tags %} class='alert alert-{{message.tags}} mb-5' {% endif%}>{{message}}</p>
+                    {% endfor %}
+                    {% endif %}
+                    {% csrf_token %}
+                  {% for fm in form %}
+                  <div class="form-group mb-3">
+                   {{fm.label_tag}} {{fm}} <small class='text-danger'>{{fm.errors|striptags}}</small>
+                  </div>
+                  {% endfor %}
+                  <input type="submit" value="Submit" class='btn btn-primary te'>
+                  <br>
+                  <div class="text-center text-primary fw-bold">
+                   <small>Existing User ? <a href="{% url "login" %}" class='text-danger '>Login Now</a></small>
+                  </div>
+                  {% if form.non_field_errors %}
+                  {% for error in form.non_field_errors %}
+                  <p class="alert alert-danger my-3">{{error}}</p>
+                  {% endfor %}
+                  {% endif %}
+                   </form>
+                  </div>
+              </div>
+            </div>
+          </div>
+    </div>
+  </div>
+</div>
+{% endblock main-contener %}

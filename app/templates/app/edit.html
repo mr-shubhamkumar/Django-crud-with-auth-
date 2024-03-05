@@ -1,0 +1,66 @@
+{% extends "app/layout.html" %}
+{% load static %}
+{% block title %}Update Page{% endblock title %}
+{% block main-contener %}
+<div class="container ">
+    <h1 class='text-center'>Update </h1>
+  <div class="row d-flex justify-content-center mt-2">
+    <div class="col-6">
+      <div class="card">
+        <div class="card-body border-1">
+         <form action="#" method="post" class=' align-items-center' enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-2">
+                <label for="exampleFormControlInput1" class="form-label">Tite</label>
+                <input type="text" name='title' value='{{data.title}}' required class="form-control" id="exampleFormControlInput1" placeholder="Enter User Name">
+              </div>
+              <div class="form-floating mb-2">
+                <textarea class="form-control" name='discription' required placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">{{data.discription}}</textarea>
+                <label for="floatingTextarea2" >Discription</label>
+              </div>
+            <div class="mb-2">
+                <select class="form-select catid" name='cat_id' required aria-label="Default select example">
+                    <option selected>Category</option>
+                    {% for cat in cats %}
+                    <option value='{{cat.id}}' {% if cat.id == data.cat.id %}selected{% endif %}>{{cat.cat_name}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                
+                
+                
+                <div class="mb-2">
+                  <select class="form-select addSubCat" name='subcat_id' required aria-label="Default select example">
+                    <option diselect>SubCategory</option>
+                    {% for subcat in subcats %}
+                    <option value='{{subcat.id}}' {% if subcat.id == data.subcat.id %}selected{% endif %}>{{subcat.subcat_name}}</option>
+                    {% endfor %}
+
+                  </select>
+              </div>
+            
+
+          
+              <div class="mb-2">
+                <label for="formFile" class="form-label">Select Image</label>
+                <input class="form-control" type="file" name='image'  id="formFile">
+              </div>
+
+
+              <div class="mb-2">
+                <p>Old Image</p>
+                <img src="{{data.image.url}}" alt="" width='100px' height='100px' srcset="">
+              </div>
+              <div class="col-auto text-center">
+                <button type="submit" class='btn btn-primary'>Save</button>
+              </div>
+         
+         </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock main-contener %}
+
+

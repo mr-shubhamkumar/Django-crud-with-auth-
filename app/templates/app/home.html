@@ -1,0 +1,59 @@
+{% extends "app/layout.html" %} {% block title %}Home Page{% endblock title %}
+{% block main-contener %}
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center my-4">
+        <h1>Django Crud</h1>
+        <a href="{% url "create" %}" class='btn btn-primary'>Create</a>
+    </div>
+  <div class="row d-flex justify-content-center mt-4">
+    <div class="col">
+      <div class="card">
+        <div class="card-body border-1">
+          <table class="table border-1">
+            <thead>
+              {% if request.user.is_authenticated %}
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Tite</th>
+                <th scope="col">Description</th>
+                <th scope="col">Category</th>
+                <th scope="col">Sub Category</th>
+                <th scope="col">Image</th>
+                <th scope="col">Action</th>
+              </tr>
+              {% endif %}
+            </thead>
+            <tbody>
+              {% if request.user.is_authenticated %}
+              {% for items in data %}
+              <tr>
+                <th scope="row">{{forloop.counter}}</th>
+                <td >{{items.title}}</td>
+                <td>{{items.discription}}</td>
+                <td>Ctegory: {{items.cat.cat_name}}</td>
+                <td>SubCtegory: {{items.subcat.subcat_name}}</td>
+                <td><img src="{{items.image.url}}" width='100px' height='100px' alt="" srcset=""></td>
+                <td>
+                    <a href="edit/{{items.id}}" class='btn btn-primary' >Edit</a>
+                    <a href="delete/{{items.id}}" class='btn btn-danger' >Delete</a>
+                </td>
+              </tr>
+              {% endfor %}
+              
+              {% else %}
+                  <div class='text-center'>
+                      <!-- Content to display when the user is not logged in -->
+                      Please log in to see this content.
+                      <!-- Add login form or other content here -->
+                  </div>
+              {% endif %}
+                          
+         
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock main-contener %}
